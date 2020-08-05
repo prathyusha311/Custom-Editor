@@ -165,34 +165,106 @@ const db_schema = {
         ]
     }
 }
+// monaco.languages.registerCompletionItemProvider('sql', {
+//     triggerCharacters: [' ', '.'],
+//     provideCompletionItems(model, position) {
+//         const { lineNumber, column } = position
+//         const textBeforePointer = model.getValueInRange({
+//             startLineNumber: lineNumber,
+//             startColumn: 0,
+//             endLineNumber: lineNumber,
+//             endColumn: column
+//         })
+//         const tokens = textBeforePointer.trim().split(/\s+/)
+//         const lastToken = tokens[tokens.length - 1].toLowerCase()
+//         if (lastToken === 'from') {
+//             return {
+//                 suggestions: db_schema.tables.map(renderTable)
+//             }
+//         } else if (lastToken === 'select') {
+//             return {
+//                 suggestions: getAllTableColumnCompletionItems()
+//             }
+//         }
+//         return {
+//             suggestions: db_schema.tables.map(renderTable)
+//                 .concat(getAllTableColumnCompletionItems())
+//                 .concat(db_keywords.map(renderKeyword))
+//         }
+//     }
+// })
+
 monaco.languages.registerCompletionItemProvider('sql', {
     triggerCharacters: [' ', '.'],
     provideCompletionItems(model, position) {
-        const { lineNumber, column } = position
-        const textBeforePointer = model.getValueInRange({
-            startLineNumber: lineNumber,
-            startColumn: 0,
-            endLineNumber: lineNumber,
-            endColumn: column
-        })
-        const tokens = textBeforePointer.trim().split(/\s+/)
-        const lastToken = tokens[tokens.length - 1].toLowerCase()
-        if (lastToken === 'from') {
-            return {
-                suggestions: db_schema.tables.map(renderTable)
-            }
-        } else if (lastToken === 'select') {
-            return {
-                suggestions: getAllTableColumnCompletionItems()
-            }
+      const { lineNumber, column } = position
+      const textBeforePointer = model.getValueInRange({
+        startLineNumber: lineNumber,
+        startColumn: 0,
+        endLineNumber: lineNumber,
+        endColumn: column
+      })
+      const beforeTokens = textBeforePointer.trim().split(/\s+/)
+      const lastToken = beforeTokens[beforeTokens.length - 1].toLowerCase()
+
+      const entireText = model.getValue();
+      const tokens = entireText.trim().split(/\s+/);
+      console.log(textBeforePointer)
+      console.log(entireText)
+      const aliasMap = [];
+      const tablesTemp = [...db_schema.tables];
+      const tableColumnsTemp = { ...db_schema.table_columns };
+      // const extendedTables = [...db_schema.tables];
+      // const extendedTableColumns = {...db_schema.table_columns};
+      for (let i = 1; i < tokens.length - 1; i++) {
+        if (tokens[i] === 'as') {
+          aliasMap.push({
+            name: tokens[i - 1],
+            alias: tokens[i + 1]
+          });
         }
-        return {
-            suggestions: db_schema.tables.map(renderTable)
-                .concat(getAllTableColumnCompletionItems())
-                .concat(db_keywords.map(renderKeyword))
+      }
+
+      aliasMap.forEach((map) => {
+        if (db_schema.tables.indexOf(map.name) >= 0 && db_schema.table_columns.hasOwnProperty(map.name)) {
+          db_schema.tables.push(map.alias);
+          db_schema.table_columns[map.alias] = db_schema.table_columns[map.name];
         }
+      })
+      let suggestions = null;
+      if (lastToken.charAt(lastToken.length - 1) == '.') {
+        const lastTokenWord = lastToken.substr(0, lastToken.length - 1);
+        suggestions = [];
+        if (db_schema.tables.indexOf(lastTokenWord) >= 0) {
+          suggestions = getGivenTableColumnCompletionItems(lastTokenWord);
+        }
+      } else if (lastToken === 'from') {
+        suggestions = db_schema.tables.map(renderTable)
+      } else if (lastToken === 'select') {
+        suggestions = getAllTableColumnCompletionItems()
+      } else if (lastToken == 'as') {
+        suggestions = [];
+      }
+      suggestions = suggestions ? suggestions : db_keywords.map(renderKeyword)
+        .concat(getAllTableColumnCompletionItems())
+        .concat(db_schema.tables.map(renderTable));
+
+      db_schema.tables = [...tablesTemp];
+      db_schema.table_columns = { ...tableColumnsTemp };
+      return { suggestions };
     }
-})
+  })
+
+function getGivenTableColumnCompletionItems(table) {
+    const table_columns = []
+    if (db_schema.table_columns.hasOwnProperty(table)){
+      db_schema.table_columns[table].forEach(column => {
+        table_columns.push(renderTableColumn(table, column))
+      })
+    }
+    return table_columns
+  }
+
 
 function getAllTableColumnCompletionItems() {
     const table_columns = []
