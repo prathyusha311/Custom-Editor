@@ -85,12 +85,12 @@ const Editor = (props) => {
 
             </Box>
             <Box display="flex" height="calc(100% - 64px)" overflow="hidden">
-                <Box width="60%" height="100%">
-                    <Box height="60%">
+                {/* <Box width="90%" height="100%"> */}
+                    {/* <Box height="60%">
                         <SimpleTypescriptEditor />
                     </Box>
-                    <Box bgcolor="rgb(242, 242, 242)" borderBottom="2px solid rgba(0, 0, 0, 0.1)" color="hsl(0,0%,30%)">
-                        <Tabs
+                    <Box bgcolor="rgb(242, 242, 242)" borderBottom="2px solid rgba(0, 0, 0, 0.1)" color="hsl(0,0%,30%)"> */}
+                        {/* <Tabs
                             value={tabValue} onChange={handleTabChange} indicatorColor="primary">
                             <Tab classes={{
                                 root: classes.tabsRoot
@@ -98,39 +98,12 @@ const Editor = (props) => {
                             <Tab classes={{
                                 root: classes.tabsRoot
                             }} label="API" />
-                        </Tabs>
-                    </Box>
+                        </Tabs> */}
+                    {/* </Box> */}
 
-                    {
-                        tabValue == 0 && (
-                            <Box display="flex" height="inherit">
-                                <Box width="20%" height="100%" bgcolor="rgb(242, 242, 242)">
-                                    {
-                                        examples.map(item => (
-                                            <Box pl="16px" py="8px" className={item.value == state ? classes.selectedListItem : classes.listItem}
-                                                onClick={() => handleClick(item.value)}>
-                                                <Typography variant="caption">{item.name}</Typography>
-                                            </Box>
-
-                                        ))
-                                    }
-                                </Box>
-                                <Box p="16px">
-                                    {/* <ReactMarkdown source={content[state]} /> */}
-                                </Box>
-
-                            </Box>
-
-                        )
-                    }
-                    {
-                        tabValue == 1 && <Typography>API</Typography>
-                    }
-
-
-                </Box>
-                <Divider orientation="vertical" />
-                <Box width="35%">
+                {/* </Box> */}
+                {/* <Divider orientation="vertical" /> */}
+                <Box width="100%">
                     <SqlEditor />
                 </Box>
             </Box>
