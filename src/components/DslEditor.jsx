@@ -197,8 +197,7 @@ const actions = [
     'read',
     'update',
     'delete',
-    'modify',
-    'all'
+    'modify'
 ]
 
 const connectors = [
@@ -278,7 +277,7 @@ monaco.languages.registerCompletionItemProvider('policyDSL', {
             suggestions = actions.map(renderKeyword)
         } else if (actions.includes(lastToken)) {
             suggestions = [renderKeyword('on', false)]
-        } else if (lastToken == 'on' || lastToken.charAt(lastToken.length - 1) == ',' || beforLastToken == 'on') {
+        } else if (lastToken == 'on' || lastToken.charAt(lastToken.length - 1) == ',') {
             suggestions = db_schema.tables.map(renderTable)
         } else if (db_schema.tables.includes(lastToken)) {
             if (beforeTokens.includes('read')) {
