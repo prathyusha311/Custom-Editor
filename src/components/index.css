@@ -1,0 +1,43 @@
+/* .monaco-editor .view-line,
+.monaco-editor .view-overlays,
+.monaco-editor .cursor {
+  margin-top: 10px;
+} */
+
+
+.monaco-editor .accessibilityHelpWidget {
+    margin-top: 20px;
+}
+
+/* .monaco-editor .accessibilityHelpWidget {
+    padding-top: 12px;
+   } */
+
+/* .accessibilityHelpWidget {
+    
+     padding-top: 22px;
+}  */
+
+/* .margin {
+    border: '0px solid';
+    border-color: '';
+    border-right-width: '1px';
+    width: '40px !important';
+}
+
+.margin .margin-view-overlays {
+    width: '40px !important',
+}
+
+.margin .margin-view-overlays .line-numbers {
+    width: '20px !important',
+}
+
+.finish-snippet-placeholder {
+    display: 'none !important'
+}
+
+.cursor {
+    height: '21px !important';
+    margin-top: 0
+} */

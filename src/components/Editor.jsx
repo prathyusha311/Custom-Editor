@@ -4,6 +4,7 @@ import { Box, Typography, Divider, Tab, Tabs, IconButton } from '@material-ui/co
 import CloseIcon from '@material-ui/icons/Close';
 import SimpleTypescriptEditor from './SimpleTypescriptEditor';
 import SqlEditor from './SqlEditor';
+import DslEditor from './DslEditor';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -85,12 +86,12 @@ const Editor = (props) => {
 
             </Box>
             <Box display="flex" height="calc(100% - 64px)" overflow="hidden">
-                {/* <Box width="90%" height="100%"> */}
-                    {/* <Box height="60%">
+             {/* <Box width="90%" height="100%"> 
+                     <Box height="60%">
                         <SimpleTypescriptEditor />
                     </Box>
-                    <Box bgcolor="rgb(242, 242, 242)" borderBottom="2px solid rgba(0, 0, 0, 0.1)" color="hsl(0,0%,30%)"> */}
-                        {/* <Tabs
+                    <Box bgcolor="rgb(242, 242, 242)" borderBottom="2px solid rgba(0, 0, 0, 0.1)" color="hsl(0,0%,30%)"> 
+                       <Tabs
                             value={tabValue} onChange={handleTabChange} indicatorColor="primary">
                             <Tab classes={{
                                 root: classes.tabsRoot
@@ -98,14 +99,15 @@ const Editor = (props) => {
                             <Tab classes={{
                                 root: classes.tabsRoot
                             }} label="API" />
-                        </Tabs> */}
-                    {/* </Box> */}
+                        </Tabs> 
+                   </Box> 
 
-                {/* </Box> */}
-                {/* <Divider orientation="vertical" /> */}
-                <Box width="100%">
-                    <SqlEditor />
-                </Box>
+                 </Box> 
+                 <Divider orientation="vertical" />  
+                */ }
+              <Box width="100%" height="100%">
+                    <DslEditor />
+                </Box> 
             </Box>
         </Box>
     )
