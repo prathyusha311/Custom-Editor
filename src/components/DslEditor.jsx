@@ -6,6 +6,8 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
+  Typography,
+  Button,
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
@@ -113,20 +115,39 @@ const DslEditor = () => {
               ? ss.map((each) => (
                   <ListItem
                     button
-                    onClick={handleSuggestionClick.bind(this, each)}
                     style={{
                       backgroundColor: "#fff",
                       boxShadow: "0 7px 24px 0 rgba(38, 39, 31, 0.2)",
-                      padding: "12px",
+                      padding: "16px",
                       marginBottom: "16px",
-                      width: "360px",
+                      width: "420px",
                       borderRadius: "4px",
                     }}
                   >
-                    <ListItemIcon>
-                      <Add />
-                    </ListItemIcon>
-                    <ListItemText primary={each.label} />
+                    <Box width="100%">
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        width="100%"
+                        alignItems="center"
+                      >
+                        <Typography variant="h6">{each.label}</Typography>
+                        <Button
+                          variant="text"
+                          startIcon={<Add />}
+                          color="primary"
+                          onClick={handleSuggestionClick.bind(this, each)}
+                        >
+                          Add
+                        </Button>
+                      </Box>
+                      <Box pt={2}>
+                        <Typography variant="body2" color="textSecondary">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit.
+                        </Typography>
+                      </Box>
+                    </Box>
                   </ListItem>
                 ))
               : "No suggestions"}
