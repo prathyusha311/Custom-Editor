@@ -1,0 +1,17 @@
+.monaco-editor .editor-widget {
+    display: none !important;
+    visibility: hidden !important;
+    /* top: 0 !important;
+    right: 0 !important;
+    left: auto !important; */
+}
+
+/* .monaco-editor .editor-widget .monaco-list-rows {
+    background-color: white;
+    border: 1px solid lightgray;
+}
+
+.monaco-editor .editor-widget .monaco-list-rows .monaco-list-row {
+    height: 40px;
+    border-bottom: 1px solid lightgray;
+} */

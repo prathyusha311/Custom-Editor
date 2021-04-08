@@ -3,7 +3,6 @@ import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Box, Typography, Divider, Tab, Tabs, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import SimpleTypescriptEditor from './SimpleTypescriptEditor';
-import SqlEditor from './SqlEditor';
 import DslEditor from './DslEditor';
 
 const useStyles = makeStyles((theme) =>
@@ -76,7 +75,7 @@ const Editor = (props) => {
     return (
         <Box height="900px">
             <Box display="flex" justifyContent="space-between" p="8px" color="hsl(0,0%,30%)">
-                <Typography>scripting</Typography>
+                <Typography>Editor</Typography>
                 <IconButton size="small" onClick={props.onClose}>
                     <CloseIcon />
                 </IconButton>
